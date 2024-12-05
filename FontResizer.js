@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Font Resizer
+// @name         Font Customiser
 // @namespace    http://tampermonkey.net/
 // @version      1
 // @description  Allows the user to change the font, font size, letter spacing, and line spacing of simple HTML webpage with sliders
@@ -126,8 +126,7 @@
             body {
                 ${fontStyle}
             }
-            /* Ensure the customizer box does not get the same styles */
-            #font-customization-ui {
+            #font-customisation-ui {
                 font-family: Arial, sans-serif !important;
                 font-size: 14px !important;
                 line-height: normal !important;
@@ -138,7 +137,7 @@
                 font-size: 20px !important;
                 line-height: normal !important;
                 letter-spacing: normal !important;
-                background-color: #4CAF50 !important;
+                background-color: #E30B5D !important;
                 color: white !important;
             }
         `);
@@ -158,23 +157,27 @@
         hoverButton.style.backgroundColor = '#E30B5D';
         hoverButton.style.width = '50px';
         hoverButton.style.height = '50px';
-        hoverButton.style.padding = '0px';
         hoverButton.style.borderRadius = '50%';
         hoverButton.style.color = 'white';
         hoverButton.style.cursor = 'pointer';
         hoverButton.style.fontSize = '20px';
 
         hoverButton.addEventListener('click', function() {
-            let fontCustomiserBox = document.getElementById('font-customization-ui');
-            fontCustomiserBox.style.display = fontCustomiserBox.style.display === 'none' ? 'block' : 'none';
+            let fontCustomiserBox = document.getElementById('font-customisation-box');
+
+            if (fontCustomiserBox.style.display === 'none') {
+                fontCustomiserBox.style.display = 'block';
+            } else {
+                fontCustomiserBox.style.display = 'none';
+            }
         });
 
         return hoverButton;
     }
 
-    function createCustomizationUI() {
+    function createCustomisationUI() {
         let fontCustomiserBox = createFontCustomiserBox();
-        fontCustomiserBox.id = 'font-customization-ui';
+        fontCustomiserBox.id = 'font-customisation-box';
 
         let { fontLabel, fontSelect } = createFontSelect();
         let { lineSpacingLabel, lineSpacingSlider } = createLineSpacingSlider();
@@ -201,23 +204,19 @@
         fontSelect.addEventListener('change', function() {
             applyFontSettings(fontSelect, lineSpacingSlider, letterSpacingSlider, fontSizeSlider);
         });
-
         lineSpacingSlider.addEventListener('input', function() {
             applyFontSettings(fontSelect, lineSpacingSlider, letterSpacingSlider, fontSizeSlider);
         });
-
         letterSpacingSlider.addEventListener('input', function() {
             applyFontSettings(fontSelect, lineSpacingSlider, letterSpacingSlider, fontSizeSlider);
         });
-
         fontSizeSlider.addEventListener('input', function() {
             applyFontSettings(fontSelect, lineSpacingSlider, letterSpacingSlider, fontSizeSlider);
         });
-
         document.body.appendChild(fontCustomiserBox);
     }
 
-    createCustomizationUI();
+    createCustomisationUI();
     let hoverButton = createHoverButton();
     document.body.appendChild(hoverButton);
 
