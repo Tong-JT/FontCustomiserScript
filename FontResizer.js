@@ -126,7 +126,7 @@
             body {
                 ${fontStyle}
             }
-            #font-customisation-ui {
+            #font-customisation-box {
                 font-family: Arial, sans-serif !important;
                 font-size: 14px !important;
                 line-height: normal !important;
